@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard AI | Message Protection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon">盾</div><div><strong>PhishGuard<span> AI</span></strong><small>MESSAGE SECURITY</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav-link active" data-page="overview"><span>⌂</span> Overview</button>
+    <button class="nav-link" data-page="scanner"><span>⌕</span> AI Message Scanner</button>
+    <button class="nav-link" data-page="history"><span>◷</span> Detection History</button>
+    <button class="nav-link" data-page="analytics"><span>▥</span> Analytics</button>
+    <div class="nav-label learn-label">LEARN</div>
+    <button class="nav-link" data-page="awareness"><span>✧</span> Cyber Awareness</button>
+    <div class="sidebar-bottom"><div class="status-dot"></div><div><b>Protection engine</b><small>Local AI model</small></div><span class="online">READY</span></div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div><div class="eyebrow">CYBERSECURITY / MESSAGE DEFENCE</div><h1 id="page-title">Security Overview</h1></div>
+      <div class="top-actions"><span class="secure-pill"><i></i> SYSTEM ACTIVE</span><div class="avatar">PG</div></div>
+    </header>
+
+    <section class="page active" id="overview">
+      <div class="hero">
+        <div class="hero-copy"><div class="hero-tag"><span>✦</span> AI-POWERED PROTECTION</div>
+          <h2>Stay one step<br>ahead of <em>phishing.</em></h2>
+          <p>Analyze suspicious messages with machine learning. Identify warning signs before you click, reply, or share sensitive information.</p>
+          <button class="primary-btn" data-go="scanner">Analyze a message <span>→</span></button>
+        </div>
+        <div class="hero-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="shield">⬡<span>✓</span></div><div class="scan-line"></div><div class="art-caption">THREAT MONITOR <b>● LIVE</b></div></div>
+      </div>
+      <div class="section-heading"><div><div class="eyebrow">YOUR ACTIVITY</div><h3>Security at a glance</h3></div><span class="muted">Updates after each scan</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-top"><span>Total messages scanned</span><span class="stat-icon blue">⌕</span></div><strong id="total-stat">0</strong><small>All recorded scans</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Phishing detected</span><span class="stat-icon red">⚠</span></div><strong id="phishing-stat">0</strong><small>Flagged by the model</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Legitimate predictions</span><span class="stat-icon green">✓</span></div><strong id="legitimate-stat">0</strong><small>Not flagged by the model</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Average risk indicator</span><span class="stat-icon purple">◈</span></div><strong id="risk-stat">0%</strong><small>Across recorded scans</small></div>
+      </div>
+      <div class="bottom-grid">
+        <div class="panel"><div class="panel-heading"><div><h3>Quick scan</h3><p>Paste a message to check it instantly.</p></div><span class="tiny-tag">AI SCANNER</span></div>
+          <textarea id="quick-message" placeholder="Paste a suspicious SMS, email, or message here..."></textarea>
+          <button class="primary-btn full" id="quick-scan">Scan message <span>→</span></button>
+        </div>
+        <div class="panel tips-panel"><div class="panel-heading"><div><h3>Safety reminder</h3><p>Small checks can prevent big losses.</p></div><span class="bulb">✦</span></div>
+          <ul><li>Never share OTPs, PINs, or passwords.</li><li>Check the full website domain before opening links.</li><li>Verify bank requests using official channels.</li></ul>
+          <button class="text-btn" data-go="awareness">Explore safety tips →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="scanner">
+      <div class="intro-row"><div><div class="eyebrow">THREAT ANALYSIS</div><h2>AI Message Scanner</h2><p>Paste a message or upload a TXT/CSV file for analysis.</p></div><span class="tiny-tag">TF-IDF + LOGISTIC REGRESSION</span></div>
+      <div class="panel scanner-panel">
+        <div class="tabs"><button class="tab active" data-mode="text">✎ Paste message</button><button class="tab" data-mode="upload">⇧ Upload file</button></div>
+        <div id="text-mode" class="input-mode"><label for="message-input">MESSAGE CONTENT</label><textarea id="message-input" class="large-textarea" placeholder="Example: Congratulations! You have won a prize. Click this link now to claim..."></textarea><div class="input-footer"><span>Do not enter real passwords, OTPs, or private information.</span><span id="char-count">0 / 10000</span></div></div>
+        <div id="upload-mode" class="input-mode hidden"><label>UPLOAD MESSAGE FILE</label><label class="drop-zone" for="file-input"><div class="upload-symbol">⇧</div><b>Choose a TXT or CSV file</b><span>Click to browse · Maximum file size 1 MB</span><input id="file-input" type="file" accept=".txt,.csv"></label><div id="file-name" class="file-name">No file selected</div></div>
+        <button class="primary-btn scan-btn" id="analyze-btn">Analyze with AI <span>→</span></button>
+      </div>
+      <div id="result-panel" class="panel result-panel hidden">
+        <div class="result-head"><div><div class="eyebrow">ANALYSIS COMPLETE</div><h3>Detection report</h3></div><span id="result-badge" class="result-badge">RESULT</span></div>
+        <div class="result-main"><div class="risk-ring" id="risk-ring"><div><strong id="risk-value">0%</strong><small>RISK INDICATOR</small></div></div><div class="result-summary"><h2 id="result-title">Result</h2><p id="result-advice"></p><div class="confidence">Model confidence: <b id="confidence-value">0%</b></div></div></div>
+        <div class="report-columns"><div><h4>Warning indicators</h4><ul id="indicator-list" class="indicator-list"></ul></div><div><h4>Analyzed message</h4><p id="analyzed-message" class="analyzed-message"></p></div></div>
+        <p class="disclaimer">AI predictions can be wrong. A legitimate prediction does not guarantee that a message is safe. Verify the sender independently.</p>
+      </div>
+    </section>
+
+    <section class="page" id="history">
+      <div class="intro-row"><div><div class="eyebrow">PAST ACTIVITY</div><h2>Detection History</h2><p>Your latest 100 analyzed messages on this device.</p></div><button class="outline-btn" id="refresh-history">↻ Refresh</button></div>
+      <div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>MESSAGE</th><th>RESULT</th><th>RISK</th><th>DATE & TIME</th></tr></thead><tbody id="history-body"><tr><td colspan="4" class="empty-cell">No scans yet. Analyze a message to get started.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="page" id="analytics">
+      <div class="intro-row"><div><div class="eyebrow">INSIGHTS</div><h2>Analytics</h2><p>A summary of the scans recorded by this website.</p></div><button class="outline-btn" id="refresh-analytics">↻ Refresh</button></div>
+      <div class="stats-grid analytics-stats">
+        <div class="stat-card"><span>Total scans</span><strong id="a-total">0</strong></div><div class="stat-card"><span>Phishing predictions</span><strong id="a-phishing">0</strong></div><div class="stat-card"><span>Legitimate predictions</span><strong id="a-legitimate">0</strong></div>
+      </div>
+      <div class="panel chart-panel"><div class="panel-heading"><div><h3>Prediction distribution</h3><p>Based on your saved scan history.</p></div></div><div class="bar-chart"><div class="bar-label"><span>Phishing</span><b id="phishing-percent">0%</b></div><div class="bar-track"><div id="phishing-bar" class="bar-fill danger-fill"></div></div><div class="bar-label"><span>Legitimate</span><b id="legitimate-percent">0%</b></div><div class="bar-track"><div id="legitimate-bar" class="bar-fill safe-fill"></div></div></div></div>
+    </section>
+
+    <section class="page" id="awareness">
+      <div class="intro-row"><div><div class="eyebrow">STAY INFORMED</div><h2>Cyber Awareness</h2><p>Learn how to recognise common message-based scams.</p></div></div>
+      <div class="awareness-grid">
+        <article class="panel awareness-card"><div class="aw-icon red-icon">⚠</div><h3>Urgent account warnings</h3><p>Scammers may claim your bank account or SIM will be blocked unless you act immediately.</p><b>Safety tip</b><p>Open the official app or contact the organisation using a verified number.</p></article>
+        <article class="panel awareness-card"><div class="aw-icon purple-icon">↗</div><h3>Suspicious links</h3><p>Fake websites can imitate banks, delivery services, or popular brands to steal information.</p><b>Safety tip</b><p>Check the complete domain. Do not trust a link just because it contains a familiar brand name.</p></article>
+        <article class="panel awareness-card"><div class="aw-icon yellow-icon">₹</div><h3>UPI and payment scams</h3><p>Fraudsters may ask you to scan a QR code, approve a collect request, or share a PIN.</p><b>Safety tip</b><p>You do not need to enter your UPI PIN to receive money.</p></article>
+        <article class="panel awareness-card"><div class="aw-icon blue-icon">♙</div><h3>OTP and identity theft</h3><p>Someone pretending to be support staff may ask for an OTP, password, PIN, or CVV.</p><b>Safety tip</b><p>Never share these details with anyone, including callers claiming to be bank staff.</p></article>
+      </div>
+      <div class="official-note"><b>In India:</b> If you experience financial cyber fraud, contact your bank immediately and report it through the national cybercrime helpline 1930 or <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener">cybercrime.gov.in</a>.</div>
+    </section>
+
+    <footer>PhishGuard AI <span>·</span> Educational cybersecurity project <span>·</span> Predictions are not a guarantee of safety.</footer>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
